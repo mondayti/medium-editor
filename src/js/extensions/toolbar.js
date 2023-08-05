@@ -12,6 +12,9 @@
          */
         align: 'center',
 
+        // classe customizada
+        customClasse: '',
+
         /* allowMultiParagraphSelection: [boolean]
          * enables/disables whether the toolbar should be displayed when
          * selecting multiple paragraphs/block elements
@@ -251,8 +254,8 @@
         handleDocumentMouseup: function (event) {
             // Do not trigger checkState when mouseup fires over the toolbar
             if (event &&
-                    event.target &&
-                    MediumEditor.util.isDescendant(this.getToolbarElement(), event.target)) {
+                event.target &&
+                MediumEditor.util.isDescendant(this.getToolbarElement(), event.target)) {
                 return false;
             }
             this.checkState();
@@ -375,8 +378,8 @@
             * adjacent text node that actually has content in it, and move the selectionRange start there.
             */
             if (this.standardizeSelectionStart &&
-                    selectionRange.startContainer.nodeValue &&
-                    (selectionRange.startOffset === selectionRange.startContainer.nodeValue.length)) {
+                selectionRange.startContainer.nodeValue &&
+                (selectionRange.startOffset === selectionRange.startContainer.nodeValue.length)) {
                 var adjacentNode = MediumEditor.util.findAdjacentTextNodeWithContent(MediumEditor.selection.getSelectionElement(this.window), selectionRange.startContainer, this.document);
                 if (adjacentNode) {
                     var offset = 0;
@@ -397,7 +400,7 @@
             // If no editable has focus OR selection is inside contenteditable = false
             // hide toolbar
             if (!this.base.getFocusedElement() ||
-                    MediumEditor.selection.selectionInContentEditableFalse(this.window)) {
+                MediumEditor.selection.selectionInContentEditableFalse(this.window)) {
                 return this.hideToolbar();
             }
 
@@ -406,8 +409,8 @@
             // hide toolbar
             var selectionElement = MediumEditor.selection.getSelectionElement(this.window);
             if (!selectionElement ||
-                    this.getEditorElements().indexOf(selectionElement) === -1 ||
-                    selectionElement.getAttribute('data-disable-toolbar')) {
+                this.getEditorElements().indexOf(selectionElement) === -1 ||
+                selectionElement.getAttribute('data-disable-toolbar')) {
                 return this.hideToolbar();
             }
 
@@ -457,8 +460,8 @@
                     if (typeof extension.checkState === 'function') {
                         extension.checkState(parentNode);
                     } else if (typeof extension.isActive === 'function' &&
-                               typeof extension.isAlreadyApplied === 'function' &&
-                               typeof extension.setActive === 'function') {
+                        typeof extension.isAlreadyApplied === 'function' &&
+                        typeof extension.setActive === 'function') {
                         if (!extension.isActive() && extension.isAlreadyApplied(parentNode)) {
                             extension.setActive();
                         }
@@ -491,8 +494,8 @@
 
             // Make sure the selection parent isn't outside of the contenteditable
             if (!this.getEditorElements().some(function (element) {
-                    return MediumEditor.util.isDescendant(element, parentNode, true);
-                })) {
+                return MediumEditor.util.isDescendant(element, parentNode, true);
+            })) {
                 return;
             }
 
@@ -562,11 +565,11 @@
                 if (scrollTop > (containerTop + container.offsetHeight - toolbarHeight - this.stickyTopOffset)) {
                     toolbarElement.style.top = (containerTop + container.offsetHeight - toolbarHeight) + 'px';
                     toolbarElement.classList.remove('medium-editor-sticky-toolbar');
-                // Stick the toolbar to the top of the window
+                    // Stick the toolbar to the top of the window
                 } else if (scrollTop > (containerTop - toolbarHeight - this.stickyTopOffset)) {
                     toolbarElement.classList.add('medium-editor-sticky-toolbar');
                     toolbarElement.style.top = this.stickyTopOffset + 'px';
-                // Normal static toolbar position
+                    // Normal static toolbar position
                 } else {
                     toolbarElement.classList.remove('medium-editor-sticky-toolbar');
                     toolbarElement.style.top = containerTop - toolbarHeight + 'px';
@@ -628,6 +631,10 @@
                 positions = {},
                 relativeBoundary = {},
                 middleBoundary, elementsContainerBoundary;
+
+            if (this.customClasse) {
+                toolbarElement.classList.add(this.customClasse);
+            }
 
             // If container element is absolute / fixed, recalculate boundaries to be relative to the container
             if (elementsContainerAbsolute) {
