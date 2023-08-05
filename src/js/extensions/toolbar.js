@@ -649,7 +649,7 @@
                 positions.top = this.window.pageYOffset;
             }
 
-            middleBoundary = boundary.left + boundary.width / 2;
+            middleBoundary = (boundary.left + boundary.width / 2) + window.scrollX;
             positions.top += boundary.top - toolbarHeight;
 
             if (boundary.top < buttonHeight) {

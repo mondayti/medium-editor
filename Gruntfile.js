@@ -109,10 +109,13 @@ module.exports = function (grunt) {
         }
     };
 
+    var sass = require('node-sass');
+
     gruntConfig.sass = {
         dist: {
             options: {
-                includePaths: ['src/sass/']
+                includePaths: ['src/sass/'],
+                implementation: sass
             },
             files: {
                 'dist/css/medium-editor.css': 'src/sass/medium-editor.scss',
@@ -234,7 +237,7 @@ module.exports = function (grunt) {
         grunt.registerTask('travis', ['jshint', 'jscs', 'csslint', 'karma:unit']);
     }
 
-    grunt.registerTask('test', ['jshint', 'jscs', 'concat', 'csslint', 'karma:dev']);
+    // grunt.registerTask('test', ['jshint', 'jscs', 'concat', 'csslint', 'karma:dev']);
     grunt.registerTask('js', ['jshint', 'jscs', 'concat', 'karma:dev', 'uglify']);
     grunt.registerTask('css', ['sass', 'autoprefixer', 'cssmin', 'csslint']);
     grunt.registerTask('default', ['js', 'css']);
