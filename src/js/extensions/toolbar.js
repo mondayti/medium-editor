@@ -669,16 +669,16 @@
                 positions.top += this.diffTop;
             }
 
-            if (middleBoundary < halfOffsetWidth) {
-                positions.left = defaultLeft + halfOffsetWidth;
-                positions.right = 'initial';
-            } else if ((containerWidth - middleBoundary) < halfOffsetWidth) {
-                positions.left = 'auto';
-                positions.right = 0;
-            } else {
-                positions.left = defaultLeft + middleBoundary;
-                positions.right = 'initial';
-            }
+            // if (middleBoundary < halfOffsetWidth) {
+            //     positions.left = defaultLeft + halfOffsetWidth;
+            //     positions.right = 'initial';
+            // } else if ((containerWidth - middleBoundary) < halfOffsetWidth) {
+            //     positions.left = 'auto';
+            //     positions.right = 0;
+            // } else {
+            positions.left = defaultLeft + middleBoundary;
+            positions.right = 'initial';
+            // }
 
             ['top', 'left', 'right'].forEach(function (key) {
                 toolbarElement.style[key] = positions[key] + (isNaN(positions[key]) ? '' : 'px');
