@@ -162,9 +162,8 @@
     display: inline-block; }
     .medium-editor-toolbar-form .medium-editor-toolbar-input:focus,
     .medium-editor-toolbar-form label:focus {
-      -webkit-appearance: none;
-         -moz-appearance: none;
-              appearance: none;
+      -moz-appearance: none;
+           appearance: none;
       border: none;
       box-shadow: none;
       outline: 0; }

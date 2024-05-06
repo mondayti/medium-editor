@@ -149,13 +149,13 @@
             this.anchorPreview.style.top = Math.round(top) + 'px';
             this.anchorPreview.style.right = 'initial';
             if (middleBoundary < halfOffsetWidth) {
-                this.anchorPreview.style.left = defaultLeft + halfOffsetWidth + 'px';
+                this.anchorPreview.style.left = (defaultLeft + halfOffsetWidth) + window.scrollX + 'px';
                 this.anchorPreview.style.right = 'initial';
             } else if ((containerWidth - middleBoundary) < halfOffsetWidth) {
                 this.anchorPreview.style.left = 'auto';
                 this.anchorPreview.style.right = 0;
             } else {
-                this.anchorPreview.style.left = defaultLeft + middleBoundary + 'px';
+                this.anchorPreview.style.left = (defaultLeft + middleBoundary) + window.scrollX + 'px';
                 this.anchorPreview.style.right = 'initial';
             }
         },
